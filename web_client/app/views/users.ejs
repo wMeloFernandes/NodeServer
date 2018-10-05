@@ -55,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home">Digital Key</a>
+                <a class="navbar-brand" href="/index.html">Digital Key</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -173,55 +173,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <form action="/users" method="POST">    
+                                    <% for(var i = 0;i<users.length;i++){ %>
                                     <tr class="odd gradeX">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Willian Melo</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
+                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link"><%=users[i].username %></button></a></td>
+                                        <td><%=users[i].email %></td>
+                                        <td><%=users[i].last_access %></td>
+                                        <td class="center"><button type="submit" class="btn btn-success btn-sm">Yes</button></td>
                                     </tr>
-                                    <tr class="even gradeC">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Jaqueline Mangolin</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Oliver Melo</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Zen Melo</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Ziollão da Massa</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    
-                                    <tr class="gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Bruxo do Axé</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Mago do Git</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td><a href="edituser"><button type="button" class="btn btn-outline btn-link">Fatima Melo</button></a></td>
-                                        <td>email@email.com</td>
-                                        <td>Wednesday, 03-Oct-18 13:09:00</td>
-                                        <td class="center"><button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
+                                    <% } %>
+                                </form>
                                 </tbody>
                             </table>
                     <!-- /.panel -->

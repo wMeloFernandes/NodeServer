@@ -13,10 +13,10 @@ module.exports.makeLogin = function(app,req,res){
 		for(var i = 0;i<result.length;i++){
 			if(result[i].name==user && result[i].password==password){
 				res.render('home');
+				
 				break;
 			}else{
 				console.log("No access");
-				res.render('login');
 			}
 		}
 	});
@@ -27,5 +27,15 @@ module.exports.makeLogout = function(app,req,res){
 }
 
 module.exports.openManagerPage = function(app,req,res){
-	res.render('manager');
+		res.render('manager');
+}
+
+module.exports.insertNewManager = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var newManager = new app.app.models.ManagerDAO(connection);
+	var manager = req.body;
+
+	newManager.insertNewManager(manager,function(error,result){
+		res.render('home');
+	});
 }

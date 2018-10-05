@@ -167,32 +167,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% for(var i = 0;i<gates.length;i++) { %>
                                     <tr class="odd gradeX">
-                                        <td>1</td>
-                                        <td>Room 10</td>
-                                        <td class="center">Wednesday, 03-Oct-18 13:09:00</td>
+                                        <td><%=gates[i].gate_id %></td>
+                                        <td><%=gates[i].name %></td>
+                                        <td class="center"><%=gates[i].last_access %></td>
                                         <td> <button type="button" class="btn btn-success btn-sm">Yes</button></td>
                                     </tr>
-                                    <tr class="even gradeC">
-                                        <td>2</td>
-                                        <td>Room 20</td>
-                                        <td class="center">Thursday, 04-Oct-18 13:09:00</td>
-                                        <td> <button type="button" class="btn btn-success btn-sm">Yes</button></td>
-
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>3</td>
-                                        <td>Kitchen</td>
-                                        <td class="center">Friday, 05-Oct-18 13:09:00</td>
-                                        <td> <button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td>10</td>
-                                        <td>Special Room</td>
-                                        <td class="center">Saturday, 06-Oct-18 13:09:00</td>
-                                        <td> <button type="button" class="btn btn-success btn-sm">Yes</button></td>
-                                    </tr>
-                                    </tr>
+                                    <% } %>
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
