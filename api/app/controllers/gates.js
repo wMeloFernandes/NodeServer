@@ -24,3 +24,12 @@ module.exports.insertNewGate = function(app,req,res){
 	})
 
 }
+
+module.exports.gatesAPP = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var gates = new app.app.models.GateDAO(connection);
+
+	gates.getGatesList(function(error,result){
+		res.send({gates: result});
+	});	
+}
