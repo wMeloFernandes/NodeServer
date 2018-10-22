@@ -8,7 +8,8 @@ GateDAO.prototype.getGatesList = function(callback){
 }
 
 GateDAO.prototype.insertNewGate = function(gate,callback){
-	this._connection.query('INSERT INTO gate SET ?',gate,callback);
+	console.log("insertNewGateDAO");
+	this._connection.query('INSERT INTO gate SET ?', gate, callback);
 }
 
 module.exports = function(){

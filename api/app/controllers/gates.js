@@ -17,11 +17,13 @@ module.exports.insertNewGate = function(app,req,res){
 	var gates = new app.app.models.GateDAO(connection);
 
 	var gate = req.body;
-	console.log(gate);
 
 	gates.insertNewGate(gate, function(error,result){
-		console.log(result);
-	})
+		gates.getGatesList(function(error,result){
+			console.log("Render gates final");
+			res.render('gates', {gates: result});
+		});
+	});
 
 }
 

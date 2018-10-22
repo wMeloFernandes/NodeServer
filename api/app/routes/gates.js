@@ -6,12 +6,10 @@ module.exports = function(app){
 
 	app.get('/newgate', function(req, res){
 		app.app.controllers.gates.openNewGatePage(app,req,res)
-	})
+	});
 
-	app.post('/newgate', function(req,res){
+	app.post('/newGateRegister', function(req,res){
 		app.app.controllers.gates.insertNewGate(app,req,res);
-	})
+	});
 
 };
-
-

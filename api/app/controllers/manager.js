@@ -10,14 +10,16 @@ module.exports.makeLogin = function(app,req,res){
 	var manager = new app.app.models.ManagerDAO(connection);
 
 	manager.getOneManager(function(error,result){
+		var option = 0;
 		for(var i = 0;i<result.length;i++){
 			if(result[i].name==user && result[i].password==password){
-				res.render('home');
-				
+				res.redirect('/index.html');
+				option = 1;
 				break;
-			}else{
-				console.log("No access");
 			}
+		}
+		if(option==0){
+			res.redirect('/');
 		}
 	});
 }
