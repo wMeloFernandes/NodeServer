@@ -23,6 +23,11 @@ module.exports = function(app){
 
 	app.post('/manager', function(req,res){
 		app.app.controllers.manager.insertNewManager(app,req,res);
+	});
+
+	app.post('/managertest',function(req,res){
+		console.log("managerTest ROTA");
+		app.app.controllers.manager.managerTest(app,req,res);
 	})
 
 

@@ -13,12 +13,16 @@ module.exports.openUsersPage = function(app,req,res){
 module.exports.newUser = function(app,req,res){
 	var connection = app.config.dbConnection();
 	var users = new app.app.models.UserDAO(connection);
-	var user = req.body;
-	var password = user.password;
-	var test = crypto.createHash('md5').update(password).digest('hex');
-	console.log("PASSWORD "+test);
+	
+	var password = req.body.password;
+	var newPassword = crypto.createHash('md5').update(password).digest('hex');
 
-	users.insertNewUser(user,function(error,result){
+	var data = {username: req.body.username,
+				password: newPassword,
+				permissions: req.body.permissions,
+				email: req.body.email};
+
+	users.insertNewUser(data,function(error,result){
 		console.log("User inserted");
 		users.getUsersList(function(error,result){
 			res.render('users', {users: result});
@@ -53,13 +57,13 @@ module.exports.userAccess = function(app,req,res){
 
 		if(result.length>0){
 			if(user.password==result[0].password){
-				res.sendStatus(200);
+				res.send(200);
 			}else{
-				res.sendStatus(401);
+				res.send(401);
 			}
 
 		}else{
-		res.sendStatus(404);
+		res.send(404);
 		}
 
 	});
