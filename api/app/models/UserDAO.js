@@ -37,6 +37,10 @@ UserDAO.prototype.checkIfEmailIsAlreadyRegistered = function(user,callback){
 	this._connection.query('SELECT * FROM user WHERE email=?',user.email,callback);
 }
 
+UserDAO.prototype.getAllUserInformations = function(user,callback){
+	this._connection.query('SELECT * FROM user WHERE email=?',user.email,callback);
+}
+
 module.exports = function(){
 
     return UserDAO;

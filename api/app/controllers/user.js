@@ -16,7 +16,6 @@ module.exports.newUser = function(app,req,res){
 	
 	var data = {username: user.username ,
 				password: crypto.createHash('md5').update(user.password).digest('hex'),
-				permissions: user.permissions ,
 				email: user.email };
 
 	users.insertNewUser(data,function(error,result){
@@ -37,7 +36,6 @@ module.exports.newUserAPP = function(app,req,res){
 
 	var data = {username: user.username,
 				password: crypto.createHash('md5').update(user.password).digest('hex'),
-				permissions: user.permissions,
 				email: user.email};
 
 
@@ -73,7 +71,13 @@ module.exports.userAccess = function(app,req,res){
 	users.getUserAccess(data,function(error,result){
 
 		if(result.length>0){
-			res.send({status: 200});
+			users.getAllUserInformations(data,function(error,result){
+				res.send({status: 200,
+						user_id: result[0].user_id,
+						username: result[0].username,
+						last_access: result[0].last_access,
+						email:result[0].email });
+			});
 		}else{
 			res.send({status: 404});
 		}
