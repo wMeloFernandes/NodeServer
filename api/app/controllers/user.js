@@ -5,9 +5,7 @@ module.exports.openUsersPage = function(app,req,res){
 	var users = new app.app.models.UserDAO(connection);
 
 	users.getUsersList(function(error,result){
-		console.log(result);
-		//res.render('users', {users: result});
-		res.send(result);
+		res.render('users', {users: result});
 	});
 }
 
@@ -15,11 +13,13 @@ module.exports.newUser = function(app,req,res){
 	var connection = app.config.dbConnection();
 	var users = new app.app.models.UserDAO(connection);
 	var user = req.body;
-	var password = user.password;
-	var test = crypto.createHash('md5').update(password).digest('hex');
-	console.log("PASSWORD "+test);
+	
+	var data = {username: user.username ,
+				password: crypto.createHash('md5').update(user.password).digest('hex'),
+				permissions: user.permissions ,
+				email: user.email };
 
-	users.insertNewUser(user,function(error,result){
+	users.insertNewUser(data,function(error,result){
 		console.log("User inserted");
 		users.getUsersList(function(error,result){
 			res.render('users', {users: result});
@@ -41,14 +41,25 @@ module.exports.newUserAPP = function(app,req,res){
 				email: user.email};
 
 
-
-	users.insertNewUser(data,function(error,result){
-		users.getOneUser(data,function(error,result){
-			var data = {status: "200"}
-			res.send(data);
-		});
+	users.checkIfEmailIsAlreadyRegistered(data,function(error,result){
+		if(result.length>0){
+			console.log(result.length);
+			console.log("DEU RUIM");
+			var answer = {status: 409,
+						user_id: 0};
+			res.send(answer);
+		}else{
+			users.insertNewUser(data,function(error,result){
+				console.log(result);
+				users.getOneUser(data,function(error,result){
+					console.log("Entrou segundo callback");
+					var answer = {status: "200",
+								user_id: result[0].user_id};
+					res.send(answer);
+				});
+			});		
+		}
 	});
-
 }
 
 module.exports.userAccess = function(app,req,res){

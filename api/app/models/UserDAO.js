@@ -8,6 +8,7 @@ UserDAO.prototype.getUsersList = function(callback){
 }
 
 UserDAO.prototype.insertNewUser = function(user, callback){
+	console.log("Entrou no DAO");
 	this._connection.query('INSERT INTO user SET ?', user, callback);
 }
 
@@ -30,6 +31,10 @@ UserDAO.prototype.updateUserPassword = function(user,callback){
 	var query = "UPDATE user SET password = '"+user.password+"' WHERE user_id = '"+user.user_id+"'";
 	console.log(query);
 	this._connection.query(query,callback);
+}
+
+UserDAO.prototype.checkIfEmailIsAlreadyRegistered = function(user,callback){
+	this._connection.query('SELECT * FROM user WHERE email=?',user.email,callback);
 }
 
 module.exports = function(){

@@ -1,6 +1,7 @@
 module.exports = function(app){
 
 	app.get('/users', function(req, res){
+		console.log("USERS ROTE");
 		app.app.controllers.user.openUsersPage(app,req,res);
 	});
 
