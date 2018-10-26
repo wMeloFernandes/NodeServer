@@ -8,12 +8,28 @@ UserDAO.prototype.getUsersList = function(callback){
 }
 
 UserDAO.prototype.insertNewUser = function(user, callback){
-	console.log("insertNewUser DAO");
 	this._connection.query('INSERT INTO user SET ?', user, callback);
 }
 
-UserDAO.prototype.getUserAccess = function(user,callback){
-	this._connection.query('SELECT password FROM user where username = ?',user.username,callback);
+UserDAO.prototype.getUserAccess = function(data,callback){
+	var query = "SELECT * FROM user WHERE email = '"+data.email+"' AND password = '"+data.password+"'";
+	console.log(query);
+	this._connection.query(query,callback);
+}
+
+UserDAO.prototype.getOneUser = function(user,callback){
+	this._connection.query('SELECT * FROM user where username = ?',user.username,callback);
+}
+
+UserDAO.prototype.getUserByRecover = function(user,callback){
+	var query = "SELECT * FROM user WHERE user_id = '"+user.user_id+"' AND email = '"+user.email+"'";
+	this._connection.query(query,callback);
+}
+
+UserDAO.prototype.updateUserPassword = function(user,callback){
+	var query = "UPDATE user SET password = '"+user.password+"' WHERE user_id = '"+user.user_id+"'";
+	console.log(query);
+	this._connection.query(query,callback);
 }
 
 module.exports = function(){
@@ -21,4 +37,3 @@ module.exports = function(){
     return UserDAO;
 
 }
-

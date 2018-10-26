@@ -19,8 +19,8 @@ module.exports.insertNewGate = function(app,req,res){
 	var gate = req.body;
 
 	gates.insertNewGate(gate, function(error,result){
+		console.log("Gate inserted")
 		gates.getGatesList(function(error,result){
-			console.log("Render gates final");
 			res.render('gates', {gates: result});
 		});
 	});
