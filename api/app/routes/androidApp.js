@@ -17,14 +17,29 @@ module.exports = function(app){
 		app.app.controllers.user.userAccess(app,req,res);
 	});
 
-		app.post('/recoverPassword', function(req,res){
+	app.post('/recoverPassword', function(req,res){
 		app.app.controllers.user.recoverUserPassword(app,req,res);
 	});
 
-		app.post('/recoverPasswordAfterChecked', function(req,res){
-			console.log("Entrou na API");
+	app.post('/recoverPasswordAfterChecked', function(req,res){
+		console.log("Entrou na API");
 		app.app.controllers.user.recoverUserPasswordAfterChecked(app,req,res);
-	});		
+	});	
+
+	app.post('/getUserHistorical', function(req,res){
+		console.log("DEBUG API");
+		app.app.controllers.historical.getUserHistorical(app,req,res);
+	});
+
+	app.post('/getOnHoldPermissions', function(req,res){
+		console.log("CHAMOU A API");
+		app.app.controllers.permissions.getOnHoldPermissions(app,req,res);
+	});
+
+	app.post('/updateUserPermissionsList', function(req,res){
+		app.app.controllers.user.getUserPermissions(app,req,res);
+	});
+
 
 
 };

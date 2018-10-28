@@ -41,6 +41,14 @@ UserDAO.prototype.getAllUserInformations = function(user,callback){
 	this._connection.query('SELECT * FROM user WHERE email=?',user.email,callback);
 }
 
+UserDAO.prototype.getUserRecover = function(user,callback){
+	this._connection.query('SELECT * FROM user WHERE user_id=?',user.user_id,callback);
+}
+
+UserDAO.prototype.getUserPermissions = function(user,callback){
+	this._connection.query('SELECT permissions FROM user WHERE user_id=?',user.user_id,callback);
+}
+
 module.exports = function(){
 
     return UserDAO;

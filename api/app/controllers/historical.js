@@ -10,3 +10,15 @@ module.exports.openHistoricalPage = function(app,req,res){
 	});
 
 }
+
+module.exports.getUserHistorical = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var historical = new app.app.models.HistoricalDAO(connection);
+	var user = req.body;
+
+	historical.getUserHistorical(user,function(error,result){
+
+		res.send({historical: result});
+	});
+
+}
