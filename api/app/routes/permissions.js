@@ -14,6 +14,10 @@ module.exports = function(app){
 		console.log("ENTROU NO REJECT");
 		app.app.controllers.permissions.rejectRequest(app,req,res);
 	});
+
+	app.get('/getApprovedNumber',function(req,res){
+		app.app.controllers.permissions.getApprovedAndOnHoldNumber(app,req,res);
+	});
 };
 
 

@@ -4,7 +4,7 @@ function HistoricalDAO(connection){
 
 
 HistoricalDAO.prototype.getHistoricalList = function(callback){
-	this._connection.query('SELECT user, gate_id, time FROM historical',callback);
+	this._connection.query('SELECT user_id, gate_id, time FROM historical',callback);
 }
 
 HistoricalDAO.prototype.getUserHistorical = function(user,callback){

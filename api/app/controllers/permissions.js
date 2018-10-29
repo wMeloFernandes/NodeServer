@@ -99,3 +99,19 @@ module.exports.rejectRequest = function(app,req,res){
 	permissions.rejectRequest(permission,function(error,result){
 	});
 }
+
+
+module.exports.getApprovedAndOnHoldNumber = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var permissions = new app.app.models.PermissionsDAO(connection);
+
+	permissions.getApprovedNumber(function(error,result){
+		var data = {approved: result.length};
+		console.log(data);
+		permissions.getOnHoldNumber(data,function(error,result){
+			console.log(result.length);
+			res.send({approved: data.approved,
+					onHold: result.length});
+		});
+	});	
+}

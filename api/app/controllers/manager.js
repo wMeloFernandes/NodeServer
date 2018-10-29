@@ -5,23 +5,22 @@ module.exports.openIndex = function(app,req,res){
 }
 
 module.exports.makeLogin = function(app,req,res){
-	var user = req.query.name;
+	var email = req.query.email;
+	console.log(email);
 	var password = req.query.password;
 	var newPassword = crypto.createHash('md5').update(password).digest('hex');
+	console.log(newPassword);
+
+	var data = {email: email,
+				password: newPassword};
 
 	var connection = app.config.dbConnection();
 	var manager = new app.app.models.ManagerDAO(connection);
 
-	manager.getOneManager(function(error,result){
-		var option = 0;
-		for(var i = 0;i<result.length;i++){
-			if(result[i].name==user && result[i].password==newPassword){
-				res.redirect('/index.html');
-				option = 1;
-				break;
-			}
-		}
-		if(option==0){
+	manager.getOneManager(data,function(error,result){
+		if(result.length>0){
+			res.redirect('/index.html');
+		}else{
 			res.redirect('/');
 		}
 	});

@@ -3,8 +3,10 @@ function ManagerDAO(connection){
 }
 
 
-ManagerDAO.prototype.getOneManager = function(callback){
-	this._connection.query('SELECT name, password FROM manager',callback);
+ManagerDAO.prototype.getOneManager = function(data,callback){
+	var query = 'SELECT * FROM manager WHERE email="'+data.email+ '" AND password="'+data.password+'"';
+	console.log(query);
+	this._connection.query(query,callback);
 }
 
 ManagerDAO.prototype.insertNewManager = function(manager,callback){
