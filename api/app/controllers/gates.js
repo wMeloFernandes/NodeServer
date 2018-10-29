@@ -17,6 +17,7 @@ module.exports.insertNewGate = function(app,req,res){
 	var gates = new app.app.models.GateDAO(connection);
 
 	var gate = req.body;
+	console.log(gate);
 
 	gates.insertNewGate(gate, function(error,result){
 		console.log("Gate inserted")
@@ -33,5 +34,16 @@ module.exports.gatesAPP = function(app,req,res){
 
 	gates.getGatesList(function(error,result){
 		res.send({gates: result});
+	});	
+}
+
+module.exports.deleteGate = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var gates = new app.app.models.GateDAO(connection);
+
+	var gate = req.body;
+
+	gates.deleteGate(gate,function(error,result){
+		res.send(result);
 	});	
 }

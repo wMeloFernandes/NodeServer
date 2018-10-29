@@ -9,7 +9,12 @@ module.exports = function(app){
 	});
 
 	app.post('/newGateRegister', function(req,res){
+		console.log("ENTROU NA ROTA");
 		app.app.controllers.gates.insertNewGate(app,req,res);
+	});
+
+	app.post('/deleteGate', function(req,res){
+		app.app.controllers.gates.deleteGate(app,req,res);
 	});
 
 };

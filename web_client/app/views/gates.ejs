@@ -172,7 +172,7 @@
                                         <td><%=gates[i].gate_id %></td>
                                         <td><%=gates[i].name %></td>
                                         <td class="center"><%=gates[i].last_access %></td>
-                                        <td> <button type="button" class="btn btn-success btn-sm">Yes</button></td>
+                                        <td> <button onclick="deleteGate(this.id)" type="button" id=<%=gates[i].gate_id%> class="btn btn-success btn-sm">Yes</button></td>
                                     </tr>
                                     <% } %>
                                 </tbody>
@@ -223,6 +223,13 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script>
+        function deleteGate(gate_id){
+            $.post("/deleteGate",{gate_id: gate_id});
+            window.location.href="gates";
+        }
+    </script>
 
 </body>
 

@@ -12,6 +12,9 @@ GateDAO.prototype.insertNewGate = function(gate,callback){
 	this._connection.query('INSERT INTO gate SET ?', gate, callback);
 }
 
+GateDAO.prototype.deleteGate = function(gate,callback){
+	this._connection.query('DELETE FROM gate WHERE gate_id=?',gate.gate_id,callback);
+}
 module.exports = function(){
 
     return GateDAO;
