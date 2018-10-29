@@ -6,6 +6,7 @@ module.exports = function(app){
 	});
 
 	app.post('/newUser', function(req,res){
+		console.log("Beleza");
 		app.app.controllers.user.newUserAPP(app,req,res);
 	});
 
@@ -38,6 +39,10 @@ module.exports = function(app){
 
 	app.post('/updateUserPermissionsList', function(req,res){
 		app.app.controllers.user.getUserPermissions(app,req,res);
+	});
+
+	app.post('/makeRequestForAccess', function(req,res){
+		app.app.controllers.permissions.insertNewRequest(app,req,res);
 	});
 
 

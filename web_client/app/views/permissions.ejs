@@ -160,8 +160,9 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Gate</th>
+                                        <th>Gate Name</th>
+                                        <th>User ID</th>
+                                        <th>Gate ID</th>
                                         <th>Date</th>
                                         <th>Approve</th>
                                         <th>Reject</th>
@@ -170,17 +171,13 @@
                                 <tbody>
                                     <% for(var i = 0;i<permissions.length;i++) { %>
                                     <tr class="odd gradeX">
-                                        <td><%= permissions[i].user %></td>
+                                        <td><%= permissions[i].gate_name %></td>
+                                        <td><%= permissions[i].user_id %></td>
                                         <td><%= permissions[i].gate_id %></td>
                                         <td class="center"><%= permissions[i].time %></td>
 
-                                        <% if(permissions[i].status == 2) {%>
-                                        <td> <button type="button" class="btn btn-default disabled">Approve</button></td>
-                                        <td> <button type="button" class="btn btn-default disabled">Reject</button></td>
-                                        <% }else if(permissions[i].status==1) { %>
-                                        <td> <button type="button" class="btn btn-success btn-sm">Approve</button></td>
-                                        <td> <button type="button" class="btn btn-danger btn-sm">Reject</button></td>
-                                        <% } %>
+                                        <td> <button onclick="approve(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-success btn-sm">Approve</button></td>
+                                        <td> <button onclick="reject(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-danger btn-sm">Reject</button></td>
 
                                     </tr>
                                     <% } %>
@@ -221,6 +218,26 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!--<script>
+    $('like').click(function(){
+            $.post('/test')
+        });
+    </script> -->
+
+    <script>
+        function approve(clicked_id){
+            $.post('/approveRequest',{requisition_id: clicked_id});
+            window.location.href="permissions";
+        }
+    </script>
+
+    <script>
+        function reject(clicked_id){
+            $.post('/rejectRequest',{requisition_id: clicked_id});
+            window.location.href="permissions";
+        }
+    </script>
 
 </body>
 

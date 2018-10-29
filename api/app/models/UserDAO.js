@@ -49,6 +49,10 @@ UserDAO.prototype.getUserPermissions = function(user,callback){
 	this._connection.query('SELECT permissions FROM user WHERE user_id=?',user.user_id,callback);
 }
 
+UserDAO.prototype.updateUserPermission = function(data,callback){
+	var query = "UPDATE user SET permissions="+'"'+ data.permissions+ '"'+" WHERE user_id="+data.user_id;
+	this._connection.query(query,callback);
+}
 module.exports = function(){
 
     return UserDAO;

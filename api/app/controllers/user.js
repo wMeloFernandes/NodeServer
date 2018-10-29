@@ -36,7 +36,8 @@ module.exports.newUserAPP = function(app,req,res){
 
 	var data = {username: user.username,
 				password: crypto.createHash('md5').update(user.password).digest('hex'),
-				email: user.email};
+				email: user.email,
+				permissions: "0"};
 
 
 	users.checkIfEmailIsAlreadyRegistered(data,function(error,result){

@@ -4,7 +4,7 @@ function GateDAO(connection){
 
 
 GateDAO.prototype.getGatesList = function(callback){
-	this._connection.query('SELECT * FROM gate',callback);
+	this._connection.query('SELECT * FROM gate ORDER BY name',callback);
 }
 
 GateDAO.prototype.insertNewGate = function(gate,callback){
