@@ -11,6 +11,10 @@ module.exports = function(app){
 
 	app.post('/newUserRegister', function(req,res){
 		app.app.controllers.user.newUser(app,req,res);
-	})
+	});
+
+	app.post('/deleteUser', function(req,res){
+		app.app.controllers.user.deleteUser(app,req,res);
+	});
 
 };

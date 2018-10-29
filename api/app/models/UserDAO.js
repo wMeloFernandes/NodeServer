@@ -53,6 +53,10 @@ UserDAO.prototype.updateUserPermission = function(data,callback){
 	var query = "UPDATE user SET permissions="+'"'+ data.permissions+ '"'+" WHERE user_id="+data.user_id;
 	this._connection.query(query,callback);
 }
+
+UserDAO.prototype.deleteUser = function(data,callback){
+	this._connection.query('DELETE FROM user WHERE email=?',data.email,callback);
+}
 module.exports = function(){
 
     return UserDAO;

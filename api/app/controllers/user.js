@@ -154,3 +154,14 @@ module.exports.getUserPermissions = function(app,req,res){
 		res.send({permissions: result});
 	});	
 }
+
+module.exports.deleteUser = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var users = new app.app.models.UserDAO(connection);
+
+	var user = req.body;
+
+	users.deleteUser(user,function(error,result){
+		res.send(result);
+	});	
+}
