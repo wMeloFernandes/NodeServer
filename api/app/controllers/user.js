@@ -1,10 +1,13 @@
 var crypto = require('crypto');
 
 module.exports.openUsersPage = function(app,req,res){
+	console.log("OPEN USERS PAGE CONTROLLER DEBUG");
 	var connection = app.config.dbConnection();
 	var users = new app.app.models.UserDAO(connection);
 
 	users.getUsersList(function(error,result){
+	console.log("GETUSERSLIST DEBUG");
+	console.log(result);
 		res.render('users', {users: result});
 	});
 }
@@ -16,12 +19,13 @@ module.exports.newUser = function(app,req,res){
 	
 	var data = {username: user.username ,
 				password: crypto.createHash('md5').update(user.password).digest('hex'),
-				email: user.email };
+				email: user.email,
+				permissions: "0"};
 
 	users.insertNewUser(data,function(error,result){
 		console.log("User inserted");
 		users.getUsersList(function(error,result){
-			res.render('users', {users: result});
+			res.redirect('users');
 		});
 	});
 
@@ -162,6 +166,8 @@ module.exports.deleteUser = function(app,req,res){
 	var user = req.body;
 
 	users.deleteUser(user,function(error,result){
+		console.log("DELETANDO USUARIO DEBUG");
+		console.log(result);
 		res.send(result);
 	});	
 }

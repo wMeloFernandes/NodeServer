@@ -1,7 +1,7 @@
 module.exports = function(app){
 
 	app.get('/users', function(req, res){
-		console.log("USERS ROTE");
+		console.log("USERS ROTE DEBUG");
 		app.app.controllers.user.openUsersPage(app,req,res);
 	});
 

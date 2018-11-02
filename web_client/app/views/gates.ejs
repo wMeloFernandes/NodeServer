@@ -227,7 +227,11 @@
     <script>
         function deleteGate(gate_id){
             $.post("/deleteGate",{gate_id: gate_id});
-            window.location.href="gates";
+            window.setTimeout(updatePage(),2000);  
+        }
+        
+        function updatePage(){
+            window.location.reload();
         }
     </script>
 

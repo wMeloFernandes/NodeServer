@@ -173,16 +173,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <form action="/users" method="POST">    
                                     <% for(var i = 0;i<users.length;i++){ %>
                                     <tr class="odd gradeX">
                                         <td><a href="edituser"><button type="button" class="btn btn-outline btn-link"><%=users[i].username %></button></a></td>
                                         <td><%=users[i].email %></td>
                                         <td><%=users[i].last_access %></td>
-                                        <td class="center"><button onclick="deleteUser(this.id)" type="submit" id=<%=users[i].email%> class="btn btn-success btn-sm">Yes</button></td>
+                                        <td class="center"><button onclick="deleteUser(this.id)" type="button" id=<%=users[i].email%> class="btn btn-success btn-sm">Yes</button></td>
                                     </tr>
                                     <% } %>
-                                </form>
                                 </tbody>
                             </table>
                     <!-- /.panel -->
@@ -272,7 +270,11 @@
     <script>
         function deleteUser(email){
             $.post('/deleteUser',{email: email});
-            window.location.href="users";
+            window.setTimeout(updatePage(),2000);  
+        }
+
+        function updatePage(){
+            window.location.reload();
         }
     </script>
 

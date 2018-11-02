@@ -228,14 +228,22 @@
     <script>
         function approve(clicked_id){
             $.post('/approveRequest',{requisition_id: clicked_id});
-            window.location.href="permissions";
+            window.setTimeout(updatePage(),2000);  
+        }
+
+        function updatePage(){
+            window.location.reload();
         }
     </script>
 
     <script>
         function reject(clicked_id){
             $.post('/rejectRequest',{requisition_id: clicked_id});
-            window.location.href="permissions";
+            window.setTimeout(updatePage(),2000);  
+        }
+        
+        function updatePage(){
+            window.location.reload();
         }
     </script>
 

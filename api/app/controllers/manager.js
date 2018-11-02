@@ -16,12 +16,15 @@ module.exports.makeLogin = function(app,req,res){
 
 	var connection = app.config.dbConnection();
 	var manager = new app.app.models.ManagerDAO(connection);
+	
 
 	manager.getOneManager(data,function(error,result){
 		if(result.length>0){
 			res.redirect('/index.html');
+			console.log("REDIRECT");
 		}else{
 			res.redirect('/');
+			console.log("LOGIN AGAIN");
 		}
 	});
 }

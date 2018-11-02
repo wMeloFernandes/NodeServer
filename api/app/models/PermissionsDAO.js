@@ -38,7 +38,6 @@ PermissionsDAO.prototype.getApprovedNumber = function(callback){
 }
 
 PermissionsDAO.prototype.getOnHoldNumber = function(data,callback){
-	console.log("ENTROU NO DAO");
 	this._connection.query('SELECT * FROM permission WHERE status=1',callback);
 }
 

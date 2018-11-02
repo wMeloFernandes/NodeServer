@@ -22,7 +22,7 @@ module.exports.insertNewGate = function(app,req,res){
 	gates.insertNewGate(gate, function(error,result){
 		console.log("Gate inserted")
 		gates.getGatesList(function(error,result){
-			res.render('gates', {gates: result});
+			res.redirect('/gates');
 		});
 	});
 
