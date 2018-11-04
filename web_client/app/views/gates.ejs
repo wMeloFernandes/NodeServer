@@ -118,7 +118,7 @@
                                     <a href="permissions">Approved</a>
                                 </li>
                                 <li>
-                                    <a href="permissions">On Hold</a>
+                                    <a href="onholdpermissions">On Hold</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -162,6 +162,7 @@
                                     <tr>
                                         <th>Gate ID</th>
                                         <th>Gate Name</th>
+                                        <th>Gate Key</th>
                                         <th>Last Access</th>
                                         <th>Delete?</th>
                                     </tr>
@@ -171,6 +172,7 @@
                                     <tr class="odd gradeX">
                                         <td><%=gates[i].gate_id %></td>
                                         <td><%=gates[i].name %></td>
+                                        <td><%=gates[i].gate_key %></td>
                                         <td class="center"><%=gates[i].last_access %></td>
                                         <td> <button onclick="deleteGate(this.id)" type="button" id=<%=gates[i].gate_id%> class="btn btn-success btn-sm">Yes</button></td>
                                     </tr>

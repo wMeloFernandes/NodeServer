@@ -17,4 +17,8 @@ module.exports = function(app){
 		app.app.controllers.gates.deleteGate(app,req,res);
 	});
 
-};
+	app.get('/generateKey', function(req,res){
+		app.app.controllers.gates.generateKey(app,req,res);
+	});
+
+}

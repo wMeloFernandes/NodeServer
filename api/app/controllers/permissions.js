@@ -1,3 +1,5 @@
+var objectMapper = require('object-mapper');
+
 module.exports.openPermissionsPage = function(app,req,res){
 	var connection = app.config.dbConnection();
 	var permissions = new app.app.models.PermissionsDAO(connection);
@@ -6,6 +8,15 @@ module.exports.openPermissionsPage = function(app,req,res){
 		console.log("WILLLLLL");
 		console.log({permission: result});
 		res.render('permissions', {permissions: result});
+	});
+}
+
+module.exports.openOnHoldPermissionsPage = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var permissions = new app.app.models.PermissionsDAO(connection);	
+
+	permissions.getOnHoldList(function(error,result){
+		res.render('onholdpermissions',{permissions: result});
 	});
 }
 
@@ -110,8 +121,38 @@ module.exports.getApprovedAndOnHoldNumber = function(app,req,res){
 		console.log(data);
 		permissions.getOnHoldNumber(data,function(error,result){
 			console.log(result.length);
-			res.send({approved: data.approved,
-					onHold: result.length});
+			var approvedData = data.approved;
+			var onHoldData = result.length;
+			var permission ="{permission:\n approved:"+approvedData+",\nonHold:"+onHoldData+"}"; 
+			console.log("AOOOOOOOOOOOOOOOOOOOOOOO");
+			console.log(permission);
+			res.render('home');
 		});
 	});	
 }
+
+module.exports.getApprovedNumber =function(app,req,res){
+	var connection = app.config.dbConnection();
+	var permissions = new app.app.models.PermissionsDAO(connection);
+
+	permissions.getApprovedNumber(function(error,result){
+		console.log(result.length);
+		var value = result.length;
+		res.send(value.toString());
+	});
+}
+
+module.exports.getOnHoldNumber = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var permissions = new app.app.models.PermissionsDAO(connection);
+
+	permissions.getOnHoldNumberValue(function(error,result){
+		console.log(result.length);
+		var value = result.length;
+		res.send(value.toString());
+	});
+}
+
+
+
+      

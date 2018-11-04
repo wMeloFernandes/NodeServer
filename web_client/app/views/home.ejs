@@ -8,7 +8,6 @@
 
     <!-- JQUERY -->
     <script src="js/jquery-2.2.1.js"></script>
-
   
     <!-- incluindo css -->
     <link href="css/style.css" rel="stylesheet">
@@ -120,7 +119,7 @@
                                     <a href="permissions">Approved</a>
                                 </li>
                                 <li>
-                                    <a href="permissions">On Hold</a>
+                                    <a href="onholdpermissions">On Hold</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -159,7 +158,18 @@
                                     <i class="fa fa-check fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
+                                    <div id='approvedIDDetails' class="huge">
+                                        <script>
+                                            function getApprovedValue(){
+                                               $.get('/getApprovedValue',function(data,status){
+                                                document.getElementById('approvedIDDetails').innerHTML  = data;
+                                                //$('approvedIDDetails').text('test');
+                                                });
+                                                //alert('DORA');
+                                            }
+                                            getApprovedValue();
+                                        </script>
+                                    </div>
                                     <div>Approved</div>
                                 </div>
                             </div>
@@ -181,12 +191,23 @@
                                     <i class="fa fa-exclamation-triangle fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">2</div>
+                                    <div id='onHoldIDDetails' class="huge">
+                                        <script>
+                                            function getOnHoldValue(){
+                                               $.get('/getOnHoldValue',function(data,status){
+                                                document.getElementById('onHoldIDDetails').innerHTML  = data;
+                                                //$('approvedIDDetails').text('test');
+                                                });
+                                                //alert('DORA');
+                                            }
+                                            getOnHoldValue();
+                                        </script>
+                                    </div>
                                     <div>On Hold</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="permissions">
+                        <a href="onholdpermissions">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -297,12 +318,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-          
     <script>
-        function getNumber(){
-            $.get('/getApprovedNumber');
+        function getApprovedValue(){
+            //$.get('/getApprovedValue',function(data,status){
+                //document.getElementById('approvedIDDetails').value = data;
+                //$('approvedIDDetails').text('test');
+            //});
+            alert('DORA');
         }
-    </script>  
+    </script> 
+
 
   </div>
 <footer class="secondary_header footer">

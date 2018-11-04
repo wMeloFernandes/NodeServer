@@ -4,7 +4,11 @@ function PermissionsDAO(connection){
 
 
 PermissionsDAO.prototype.getApprovedList = function(callback){
-	this._connection.query('SELECT * FROM permission WHERE status=1 ORDER BY time ',callback);
+	this._connection.query('SELECT * FROM permission WHERE status=2 ORDER BY time ',callback);
+}
+
+PermissionsDAO.prototype.getOnHoldList = function(callback){
+	this._connection.query('SELECT * FROM permission WHERE status = 1 ORDER BY time',callback);
 }
 
 PermissionsDAO.prototype.getOnHoldPermissions = function(permission,callback){
@@ -37,7 +41,12 @@ PermissionsDAO.prototype.getApprovedNumber = function(callback){
 	this._connection.query('SELECT * FROM permission WHERE status=2',callback);
 }
 
+PermissionsDAO.prototype.getOnHoldNumberValue = function(callback){
+	this._connection.query('SELECT * FROM permission WHERE status=1',callback);
+}
+
 PermissionsDAO.prototype.getOnHoldNumber = function(data,callback){
+	console.log("DEBUG On HOLD DAO");
 	this._connection.query('SELECT * FROM permission WHERE status=1',callback);
 }
 

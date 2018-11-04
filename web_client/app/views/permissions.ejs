@@ -118,7 +118,7 @@
                                     <a href="permissions">Approved</a>
                                 </li>
                                 <li>
-                                    <a href="permissions">On Hold</a>
+                                    <a href="onholdpermissions">On Hold</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -144,7 +144,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Permissions</h1>
+                    <h1 class="page-header">Permissions Approved</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -153,7 +153,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Users list waiting to release permissions
+                            Approved permissions list
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -164,8 +164,7 @@
                                         <th>User ID</th>
                                         <th>Gate ID</th>
                                         <th>Date</th>
-                                        <th>Approve</th>
-                                        <th>Reject</th>
+                                        <th>Delete?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,8 +175,7 @@
                                         <td><%= permissions[i].gate_id %></td>
                                         <td class="center"><%= permissions[i].time %></td>
 
-                                        <td> <button onclick="approve(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-success btn-sm">Approve</button></td>
-                                        <td> <button onclick="reject(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-danger btn-sm">Reject</button></td>
+                                        <td> <button onclick="approve(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-success btn-sm">Yes</button></td>
 
                                     </tr>
                                     <% } %>
@@ -231,17 +229,6 @@
             window.setTimeout(updatePage(),2000);  
         }
 
-        function updatePage(){
-            window.location.reload();
-        }
-    </script>
-
-    <script>
-        function reject(clicked_id){
-            $.post('/rejectRequest',{requisition_id: clicked_id});
-            window.setTimeout(updatePage(),2000);  
-        }
-        
         function updatePage(){
             window.location.reload();
         }

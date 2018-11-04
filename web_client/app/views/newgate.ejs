@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home">Digital Key</a>
+                <a class="navbar-brand" href="index.html">Digital Key</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -114,7 +114,7 @@
                                     <a href="permissions">Approved</a>
                                 </li>
                                 <li>
-                                    <a href="permissions">On Hold</a>
+                                    <a href="onholdpermissions">On Hold</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -151,10 +151,13 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form action="/newGateRegister" method="POST">
-                                        <div class="form-group">
-                                            <label>Gate Key</label>
-                                            <input type="text" name="gate_key" class="form-control">
-                                        </div>
+                                        <p>
+                                            <div class="form-group">
+                                                <label>Gate Key (Save this key on your gate)</label>
+                                                <input type="text" id="gate_key" name="gate_key" class="form-control">
+                                            </div>
+                                                <button type="button" id="generateKeyButton" onclick="generateKey(this.id,'gate_key')" class="btn btn-success">Generate Key</button>
+                                        </p>
                                         <div class="form-group">
                                             <label>Gate Name</label>
                                             <input type="text" name="name" class="form-control">
@@ -195,6 +198,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script>
+        function generateKey(buttonID,gateID){
+            $.get('/generateKey', function (data,status){
+                document.getElementById(gateID).value = data;
+                document.getElementById(buttonID).setAttribute('disabled', 'disabled');
+                //document.getElementById(gateID).setAttribute('disabled', 'disabled');
+            });
+        }
+    </script>
 
 </body>
 
