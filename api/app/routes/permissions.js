@@ -11,19 +11,16 @@ module.exports = function(app){
 
 
 	app.post('/approveRequest', function(req,res){
-		console.log("ENTROU NO APPROVE");
 		app.app.controllers.permissions.approveRequest(app,req,res);
 	});
 
 
 	app.post('/rejectRequest', function(req,res){
-		console.log("ENTROU NO REJECT");
 		app.app.controllers.permissions.rejectRequest(app,req,res);
 	});
 
 
 	app.get('/getApprovedValue', function(req,res){
-		console.log("ENTROUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
 		app.app.controllers.permissions.getApprovedNumber(app,req,res);
 	});
 
@@ -34,6 +31,10 @@ module.exports = function(app){
 
 	app.get('/getApprovedNumber',function(req,res){
 		app.app.controllers.permissions.getApprovedAndOnHoldNumber(app,req,res);
+	});
+
+	app.post('/teste',function(req,res){
+		app.app.controllers.permissions.test(app,req,res);
 	});
 };
 

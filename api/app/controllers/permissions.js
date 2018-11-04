@@ -124,7 +124,6 @@ module.exports.getApprovedAndOnHoldNumber = function(app,req,res){
 			var approvedData = data.approved;
 			var onHoldData = result.length;
 			var permission ="{permission:\n approved:"+approvedData+",\nonHold:"+onHoldData+"}"; 
-			console.log("AOOOOOOOOOOOOOOOOOOOOOOO");
 			console.log(permission);
 			res.render('home');
 		});
@@ -151,6 +150,43 @@ module.exports.getOnHoldNumber = function(app,req,res){
 		var value = result.length;
 		res.send(value.toString());
 	});
+}
+
+module.exports.test = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var permissions = new app.app.models.PermissionsDAO(connection);
+	var users = new app.app.models.UserDAO(connection);
+
+	var permission = req.body;
+
+	//console.log(texto.replace('L','W'));
+
+	permissions.getGateID(permission,function(error,result){
+				var gateJSON = {gate_id: result[0].gate_id,
+								requisition_id: permission.requisition_id};
+				console.log(gateJSON);
+				permissions.getUserID(gateJSON,function(error,result){
+					console.log(result[0].user_id);
+					var userJSON = {gate_id: gateJSON.gate_id,
+									user_id: result[0].user_id};
+					console.log("WILL");
+					console.log(userJSON);
+					users.getUserPermissions(userJSON,function(error,result){
+						var newPermissions = result[0].permissions;
+						var replaceData = ','+userJSON.gate_id;
+						var newData = newPermissions.replace(replaceData,'');
+						console.log("RESULTADO");
+						var finalRequisition = {user_id: userJSON.user_id,
+												permissions: newData};
+						console.log(finalRequisition);
+						users.updateUserPermission(finalRequisition,function(error,result){
+							permissions.rejectRequest(permission,function(error,result){
+								res.send(result);
+							});
+						});
+					});
+				});
+			});
 }
 
 

@@ -25,7 +25,6 @@ PermissionsDAO.prototype.approveRequest = function(data,callback){
 }
 
 PermissionsDAO.prototype.rejectRequest = function(data, callback){
-	console.log("ENTROU NO DAO");
 	this._connection.query('DELETE FROM permission where requisition_id=?',data.requisition_id,callback);
 }
 
@@ -49,6 +48,7 @@ PermissionsDAO.prototype.getOnHoldNumber = function(data,callback){
 	console.log("DEBUG On HOLD DAO");
 	this._connection.query('SELECT * FROM permission WHERE status=1',callback);
 }
+
 
 
 module.exports = function(){
