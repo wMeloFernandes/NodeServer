@@ -175,7 +175,7 @@
                                         <td><%= permissions[i].gate_id %></td>
                                         <td class="center"><%= permissions[i].time %></td>
 
-                                        <td> <button onclick="approve(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-success btn-sm">Yes</button></td>
+                                        <td> <button onclick="deletePermission(this.id)" type="button" id=<%= permissions[i].requisition_id%> class="btn btn-success btn-sm">Yes</button></td>
 
                                     </tr>
                                     <% } %>
@@ -224,8 +224,8 @@
     </script> -->
 
     <script>
-        function approve(clicked_id){
-            $.post('/approveRequest',{requisition_id: clicked_id});
+        function deletePermission(clicked_id){
+            $.post('/deleteUserPermissions',{requisition_id: clicked_id});
             window.setTimeout(updatePage(),2000);  
         }
 

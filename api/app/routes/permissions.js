@@ -33,7 +33,7 @@ module.exports = function(app){
 		app.app.controllers.permissions.getApprovedAndOnHoldNumber(app,req,res);
 	});
 
-	app.post('/teste',function(req,res){
+	app.post('/deleteUserPermissions',function(req,res){
 		app.app.controllers.permissions.test(app,req,res);
 	});
 };
