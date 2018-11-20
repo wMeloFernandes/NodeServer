@@ -1,8 +1,13 @@
 module.exports = function(app){
 
 	app.get('/gatesRequest', function(req, res){
+		console.log("CHAMOU A LISTA");
 		app.app.controllers.gates.gatesAPP(app,req,res);
 
+	});
+
+	app.post('/gatesRequestByID', function(req,res){
+		app.app.controllers.gates.gatesAPPByID(app,req,res);
 	});
 
 	app.post('/newUser', function(req,res){
@@ -38,11 +43,31 @@ module.exports = function(app){
 	});
 
 	app.post('/updateUserPermissionsList', function(req,res){
+		console.log("Entrou no UPDATE");
 		app.app.controllers.user.getUserPermissions(app,req,res);
 	});
 
 	app.post('/makeRequestForAccess', function(req,res){
 		app.app.controllers.permissions.insertNewRequest(app,req,res);
+	});
+
+	app.post('/getNFCRequest', function(req,res){
+		app.app.controllers.user.getUserPermissionsListNFC(app,req,res);
+	});
+
+	app.post('/updateUserLastAccess', function(req,res){
+		console.log("updateUserLastAccess");
+		app.app.controllers.user.updateUserLastAccess(app,req,res);
+	});
+
+	app.post('/updateGateLastAccess', function(req,res){
+		console.log("updateGateLastAccess ROUTES");
+		app.app.controllers.gates.updateGateLastAccess(app,req,res);
+	});
+
+	app.post('/updateHistoricalList', function(req,res){
+		console.log("updateHistoricalList ROUTES");
+		app.app.controllers.historical.updateHistoricalList(app,req,res);
 	});
 
 

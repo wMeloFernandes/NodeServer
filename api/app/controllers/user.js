@@ -155,7 +155,8 @@ module.exports.getUserPermissions = function(app,req,res){
 	var user = req.body;
 
 	users.getUserPermissions(user,function(error,result){
-		res.send({permissions: result});
+		console.log(result[0].permissions);
+		res.send({permissions: result[0].permissions});
 	});	
 }
 
@@ -170,4 +171,51 @@ module.exports.deleteUser = function(app,req,res){
 		console.log(result);
 		res.send(result);
 	});	
+}
+
+module.exports.getUserPermissionsListNFC = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var users = new app.app.models.UserDAO(connection);
+
+	var user = req.body;
+	console.log(user);
+
+	users.getUserPermissions(user,function(error,result){
+		console.log(result);
+		var data = result[0].permissions;
+		console.log(data);
+		var answer = data.includes(user.gate_id);
+		if(answer==true){
+			var nfcToken = user.user_id+user.gate_id+'81D95CC';//Last = key
+			nfcToken = crypto.createHash('md5').update(nfcToken).digest('hex');
+			nfcToken = nfcToken.substring(0,7);
+			console.log(nfcToken);
+			var test = crypto.createHash('md5').update("hello world").digest('hex');
+			console.log(test)
+			var data2 = {result: 200,
+						message: nfcToken};
+		}else{
+			var data2 = {result:404,
+						message: ""};
+		}
+		res.send(data2);
+	});
+}
+
+module.exports.updateUserLastAccess = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var users = new app.app.models.UserDAO(connection);
+	console.log("updateUserLastAccess Controller");
+	var user = req.body;
+	console.log(user);
+
+	users.updateUserLastAccess(user,function(error,result){
+		//console.log(result);
+		console.log(result.affectedRows);
+		if(result.length>0){
+			res.send({status: 200});
+		}else{
+			res.send({status: 500});
+		}
+	});
 }

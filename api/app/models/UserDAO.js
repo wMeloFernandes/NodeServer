@@ -46,6 +46,7 @@ UserDAO.prototype.getUserRecover = function(user,callback){
 }
 
 UserDAO.prototype.getUserPermissions = function(user,callback){
+	console.log(user.user_id);
 	this._connection.query('SELECT permissions FROM user WHERE user_id=?',user.user_id,callback);
 }
 
@@ -56,6 +57,11 @@ UserDAO.prototype.updateUserPermission = function(data,callback){
 
 UserDAO.prototype.deleteUser = function(data,callback){
 	this._connection.query('DELETE FROM user WHERE email=?',data.email,callback);
+}
+
+UserDAO.prototype.updateUserLastAccess = function(data,callback){
+	var query = "UPDATE user SET last_access = current_timestamp WHERE user_id="+data.user_id;
+	this._connection.query(query,callback);
 }
 module.exports = function(){
 
