@@ -1,4 +1,6 @@
 var crypto = require('crypto');
+var arrayList = require('array-list')
+
 
 module.exports.openUsersPage = function(app,req,res){
 	console.log("OPEN USERS PAGE CONTROLLER DEBUG");
@@ -217,5 +219,68 @@ module.exports.updateUserLastAccess = function(app,req,res){
 		}else{
 			res.send({status: 500});
 		}
+	});
+}
+
+module.exports.specialQuery = function(app,req,res){
+	var connection = app.config.dbConnection();
+	var users = new app.app.models.UserDAO(connection);
+	var gates = new app.app.models.GateDAO(connection);
+	var permissionsDAO = new app.app.models.PermissionsDAO(connection);
+
+
+	console.log("specialQuery Controller");	
+
+	var user = req.body;
+
+	users.getUserPermissions(user,function(error,result){
+		var permissions = result[0].permissions;
+		var list = arrayList();
+		var permissionsIdList = arrayList();
+		var resultJSON = arrayList();
+		var vector = permissions.split(',');
+		var userArraySize = vector.length;
+
+		gates.getGatesList(function(error,result){
+			var gatesArraySize = result.length;
+			var gatesList = result;
+			for(var i=0;i<gatesArraySize;i++){
+				for(var j=0;j<userArraySize;j++){
+					if(vector[j]==gatesList[i].gate_id){
+						list.push(parseInt(vector[j]));
+					}
+				}
+			}
+			permissionsDAO.getOnHoldPermissions(user,function(error,result){
+				for(var i=0;i<result.length;i++){
+					permissionsIdList.push(result[i].gate_id);
+				}
+				var permissionArraySize = permissionsIdList.length;
+				var test =gatesList[0]+'"status": '+'WILL';
+					for(var i=0;i<gatesArraySize;i++){
+						var status = 0;
+						for(var j=0;j<userArraySize;j++){
+							if(list[j]==gatesList[i].gate_id){
+								status=2;
+							}
+						}
+						for(var j=0;j<permissionArraySize;j++){
+							if(permissionsIdList[j]==gatesList[i].gate_id){
+								status=1;
+							}
+						}
+						var element = {gate_id: gatesList[i].gate_id,
+										name: gatesList[i].name,
+										gate_key: gatesList[i].gate_key,
+										last_access: gatesList[i].last_access,
+										status: status};
+						resultJSON.push(element);
+						console.log(gatesList[i]);
+					}
+				console.log(resultJSON);
+				//'users', {users: result}
+				res.send({result: resultJSON});
+			});
+		});
 	});
 }

@@ -70,6 +70,10 @@ module.exports = function(app){
 		app.app.controllers.historical.updateHistoricalList(app,req,res);
 	});
 
+	app.post('/getGatesByStatus', function(req, res){
+		app.app.controllers.user.specialQuery(app,req,res);
+	});
+
 
 
 };

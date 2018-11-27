@@ -63,6 +63,7 @@ UserDAO.prototype.updateUserLastAccess = function(data,callback){
 	var query = "UPDATE user SET last_access = current_timestamp WHERE user_id="+data.user_id;
 	this._connection.query(query,callback);
 }
+
 module.exports = function(){
 
     return UserDAO;

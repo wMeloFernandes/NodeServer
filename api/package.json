@@ -9,6 +9,8 @@
   "author": "Will Melo",
   "license": "ISC",
   "dependencies": {
+    "array-list": "^1.0.7",
+    "arraylist": "^0.1.0",
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "crypto": "^1.0.1",
